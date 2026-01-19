@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Wolly Mouse</title>
 
-<!-- Hipster-Schrift -->
+<!-- Hipster/handgemachte Schrift -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
@@ -121,7 +121,7 @@ form {
   flex-direction: column;
 }
 
-input, textarea, select {
+input, textarea {
   margin: 8px 0;
   padding: 10px;
   border-radius: 10px;
@@ -149,6 +149,16 @@ input, textarea, select {
 
 .delete-btn:hover {
   background: #e87676;
+}
+
+.payment {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.payment img {
+  max-width: 200px;
+  border-radius: 15px;
 }
 
 small {
@@ -199,9 +209,6 @@ small {
 
 <section class="order">
   <h2>Bestellung</h2>
-  <p><strong>Bezahlung:</strong> TWINT (Vorkasse)</p>
-  <p><strong>TWINT Nummer:</strong> 07X XXX XX XX</p>
-  <small>Die Bestellung wird erst nach Zahlungseingang verbindlich.</small>
 
   <form action="mailto:DEINEEMAIL@EMAIL.DE" method="post" enctype="text/plain">
     <input type="text" name="Name" placeholder="Dein Name" required>
@@ -211,6 +218,13 @@ small {
     <button type="submit">Bestellung absenden</button>
     <small>Deine Daten werden nur zur Abwicklung der Bestellung verwendet.</small>
   </form>
+
+  <div class="payment">
+    <h3>Bezahlung per TWINT</h3>
+    <p>Scanne den QR-Code und zahle direkt:</p>
+    <img src="twint_qr.png" alt="TWINT QR-Code">
+    <small>Die Bestellung wird erst nach Zahlungseingang verbindlich.</small>
+  </div>
 </section>
 
 <script>
