@@ -4,19 +4,32 @@
 <meta charset="UTF-8">
 <title>Wolly Mouse</title>
 
-<!-- Hipster/handgemachte Schrift von Google Fonts -->
+<!-- Hipster-Schrift -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-/* ========== GRUNDSTIL ========== */
+/* ================== GRUNDSTIL ================== */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f5f0e6; /* Beige Hintergrund */
+  background-color: #f5f0e6; /* Beige */
   color: #4a4a4a;
 }
 
-/* ========== HERO ========== */
+/* ================== WARENKORB ================== */
+.cart {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 10px 18px;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-size: 16px;
+  z-index: 1000;
+}
+
+/* ================== HERO ================== */
 .hero {
   height: 100vh;
   display: flex;
@@ -28,7 +41,6 @@ body {
 
 .hero img {
   max-width: 350px;
-  border-radius: 0; /* Kein Kasten */
   display: block;
   margin: 0 auto;
 }
@@ -40,7 +52,7 @@ body {
   color: #4a4a4a;
 }
 
-/* ========== PRODUKTE ========== */
+/* ================== PRODUKTE ================== */
 .products {
   padding: 60px 20px;
 }
@@ -58,11 +70,15 @@ body {
   gap: 25px;
 }
 
-/* ========== PRODUKTKACHEL ========== */
+/* ================== PRODUKTKACHEL ================== */
 .card {
   background: transparent; /* kein Kasten */
   text-align: center;
   transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card img {
@@ -95,20 +111,7 @@ button:hover {
   background: #d99aa8;
 }
 
-/* ========== WARENKORB ========== */
-.cart {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: white;
-  padding: 10px 18px;
-  border-radius: 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  font-size: 16px;
-  z-index: 1000;
-}
-
-/* ========== BESTELLUNG ========== */
+/* ================== BESTELLUNG ================== */
 .order {
   padding: 60px 20px;
   background-color: #ede6d8;
@@ -126,6 +129,23 @@ input, textarea, select {
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
+}
+
+textarea#orderList {
+  height: auto;
+  min-height: 100px;
+  resize: none;
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
+.delete-btn {
+  background: #f5a3a3;
+  margin-left: 5px;
+}
+
+.delete-btn:hover {
+  background: #e87676;
 }
 
 small {
@@ -155,35 +175,27 @@ small {
   <h2>Meine Tiere</h2>
   <div class="grid">
 
-    <!-- Beispielprodukt (du kannst weitere hinzufügen, bis 20) -->
+    <!-- Beispielprodukte (du kannst bis 20 hinzufügen) -->
     <div class="card">
       <img src="maus1.png" alt="Häkelmaus Rosa">
       <h3>Häkelmaus Rosa</h3>
       <p class="price">18 CHF</p>
-      <button onclick="addToCart('Häkelmaus Rosa', 18)">
-        In den Warenkorb
-      </button>
+      <button onclick="addToCart('Häkelmaus Rosa', 18)">In den Warenkorb</button>
     </div>
 
     <div class="card">
       <img src="frosch.png" alt="Häkelfrosch">
       <h3>Häkelfrosch</h3>
       <p class="price">22 CHF</p>
-      <button onclick="addToCart('Häkelfrosch', 22)">
-        In den Warenkorb
-      </button>
+      <button onclick="addToCart('Häkelfrosch', 22)">In den Warenkorb</button>
     </div>
 
     <div class="card">
       <img src="hase.png" alt="Häkelhase">
       <h3>Häkelhase</h3>
       <p class="price">25 CHF</p>
-      <button onclick="addToCart('Häkelhase', 25)">
-        In den Warenkorb
-      </button>
+      <button onclick="addToCart('Häkelhase', 25)">In den Warenkorb</button>
     </div>
-
-    <!-- Hier einfach weitere Produkte bis 20 einfügen -->
 
   </div>
 </section>
@@ -199,7 +211,7 @@ small {
     <input type="text" name="Name" placeholder="Dein Name" required>
     <input type="email" name="Email" placeholder="Deine E-Mail" required>
     <textarea name="Adresse" placeholder="Lieferadresse" required></textarea>
-    <textarea id="orderList" name="Bestellung" placeholder="Deine Bestellung" required></textarea>
+    <textarea id="orderList" name="Bestellung" placeholder="Deine Bestellung" readonly></textarea>
     <button type="submit">Bestellung absenden</button>
     <small>Deine Daten werden nur zur Abwicklung der Bestellung verwendet.</small>
   </form>
@@ -209,13 +221,35 @@ small {
 let cart = [];
 let total = 0;
 
-function addToCart(name, price) {
-  cart.push(name + " (" + price + " CHF)");
-  total += price;
+// Produkte anzeigen im Bestellformular
+function updateOrderList() {
+  const orderList = document.getElementById("orderList");
+  if(cart.length === 0){
+    orderList.value = '';
+  } else {
+    orderList.value = cart.map((item, index) => (index+1) + ". " + item.name + " (" + item.price + " CHF)").join("\n") + "\nGesamt: " + total + " CHF";
+  }
   document.getElementById("cartCount").innerText = cart.length;
-  document.getElementById("orderList").value =
-    cart.join(", ") + "\nGesamt: " + total + " CHF";
 }
+
+// Produkt hinzufügen
+function addToCart(name, price) {
+  cart.push({name, price});
+  total += price;
+  updateOrderList();
+}
+
+// Produkt entfernen
+function removeFromCart(name) {
+  const index = cart.findIndex(item => item.name === name);
+  if(index > -1){
+    total -= cart[index].price;
+    cart.splice(index, 1);
+    updateOrderList();
+  }
+}
+
+// Optional: du könntest noch kleine Buttons neben jedem Artikel zum Löschen hinzufügen
 </script>
 
 </body>
