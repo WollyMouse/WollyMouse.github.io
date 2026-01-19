@@ -8,15 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-/* ================== GRUNDSTIL ================== */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f5f0e6; /* Beige */
+  background-color: #f5f0e6;
   color: #4a4a4a;
 }
 
-/* ================== WARENKORB ================== */
+/* Warenkorb oben rechts */
 .cart {
   position: fixed;
   top: 20px;
@@ -29,7 +28,7 @@ body {
   z-index: 1000;
 }
 
-/* ================== HERO ================== */
+/* Hero */
 .hero {
   height: 100vh;
   display: flex;
@@ -52,7 +51,7 @@ body {
   color: #4a4a4a;
 }
 
-/* ================== PRODUKTE ================== */
+/* Produkte */
 .products {
   padding: 60px 20px;
 }
@@ -70,9 +69,8 @@ body {
   gap: 25px;
 }
 
-/* ================== PRODUKTKACHEL ================== */
 .card {
-  background: transparent; /* kein Kasten */
+  background: transparent;
   text-align: center;
   transition: transform 0.2s;
 }
@@ -90,7 +88,6 @@ body {
   margin: 10px 0 5px;
   font-family: 'Pacifico', cursive;
   font-size: 1.4em;
-  color: #4a4a4a;
 }
 
 .price {
@@ -111,7 +108,7 @@ button:hover {
   background: #d99aa8;
 }
 
-/* ================== BESTELLUNG ================== */
+/* Bestellung */
 .order {
   padding: 60px 20px;
   background-color: #ede6d8;
@@ -131,17 +128,23 @@ input, textarea, select {
   border: 1px solid #ccc;
 }
 
-textarea#orderList {
-  height: auto;
-  min-height: 100px;
-  resize: none;
-  white-space: pre-wrap;
+#orderList {
   font-family: monospace;
+  white-space: pre-wrap;
+  background: #fff;
+  padding: 10px;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 .delete-btn {
   background: #f5a3a3;
-  margin-left: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 0.8em;
 }
 
 .delete-btn:hover {
@@ -157,12 +160,8 @@ small {
 
 <body>
 
-<!-- WARENKORB -->
-<div class="cart">
-  🛒 <span id="cartCount">0</span>
-</div>
+<div class="cart">🛒 <span id="cartCount">0</span></div>
 
-<!-- HERO -->
 <section class="hero">
   <div>
     <img src="maus_freigestellt.png" alt="Meine beste Häkelmaus">
@@ -170,12 +169,10 @@ small {
   </div>
 </section>
 
-<!-- PRODUKTE -->
 <section class="products">
   <h2>Meine Tiere</h2>
   <div class="grid">
 
-    <!-- Beispielprodukte (du kannst bis 20 hinzufügen) -->
     <div class="card">
       <img src="maus1.png" alt="Häkelmaus Rosa">
       <h3>Häkelmaus Rosa</h3>
@@ -200,7 +197,6 @@ small {
   </div>
 </section>
 
-<!-- BESTELLUNG -->
 <section class="order">
   <h2>Bestellung</h2>
   <p><strong>Bezahlung:</strong> TWINT (Vorkasse)</p>
@@ -211,7 +207,7 @@ small {
     <input type="text" name="Name" placeholder="Dein Name" required>
     <input type="email" name="Email" placeholder="Deine E-Mail" required>
     <textarea name="Adresse" placeholder="Lieferadresse" required></textarea>
-    <textarea id="orderList" name="Bestellung" placeholder="Deine Bestellung" readonly></textarea>
+    <div id="orderList"></div>
     <button type="submit">Bestellung absenden</button>
     <small>Deine Daten werden nur zur Abwicklung der Bestellung verwendet.</small>
   </form>
@@ -221,26 +217,39 @@ small {
 let cart = [];
 let total = 0;
 
-// Produkte anzeigen im Bestellformular
 function updateOrderList() {
-  const orderList = document.getElementById("orderList");
+  const orderDiv = document.getElementById("orderList");
+  orderDiv.innerHTML = "";
   if(cart.length === 0){
-    orderList.value = '';
+    orderDiv.textContent = "";
   } else {
-    orderList.value = cart.map((item, index) => (index+1) + ". " + item.name + " (" + item.price + " CHF)").join("\n") + "\nGesamt: " + total + " CHF";
+    cart.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.textContent = (index+1) + ". " + item.name + " (" + item.price + " CHF)";
+      // Löschen-Button
+      const btn = document.createElement("span");
+      btn.textContent = "🗑️";
+      btn.className = "delete-btn";
+      btn.onclick = () => { removeFromCart(item.name); };
+      div.appendChild(btn);
+      orderDiv.appendChild(div);
+    });
+    const totalDiv = document.createElement("div");
+    totalDiv.style.marginTop = "5px";
+    totalDiv.style.fontWeight = "bold";
+    totalDiv.textContent = "Gesamt: " + total + " CHF";
+    orderDiv.appendChild(totalDiv);
   }
-  document.getElementById("cartCount").innerText = cart.length;
+  document.getElementById("cartCount").textContent = cart.length;
 }
 
-// Produkt hinzufügen
-function addToCart(name, price) {
+function addToCart(name, price){
   cart.push({name, price});
   total += price;
   updateOrderList();
 }
 
-// Produkt entfernen
-function removeFromCart(name) {
+function removeFromCart(name){
   const index = cart.findIndex(item => item.name === name);
   if(index > -1){
     total -= cart[index].price;
@@ -248,8 +257,6 @@ function removeFromCart(name) {
     updateOrderList();
   }
 }
-
-// Optional: du könntest noch kleine Buttons neben jedem Artikel zum Löschen hinzufügen
 </script>
 
 </body>
