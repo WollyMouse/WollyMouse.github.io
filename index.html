@@ -2,18 +2,100 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Handgemachte Häkeltiere</title>
+<title>Wolly Mouse</title>
+
+<!-- Hipster/handgemachte Schrift von Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-/* ================== GRUNDSTIL ================== */
+/* ========== GRUNDSTIL ========== */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f5f0e6; /* Beige */
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f0e6; /* Beige Hintergrund */
   color: #4a4a4a;
 }
 
-/* ================== WARENKORB ================== */
+/* ========== HERO ========== */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #f2c6cf, #dfe8df);
+}
+
+.hero img {
+  max-width: 350px;
+  border-radius: 0; /* Kein Kasten */
+  display: block;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 4em;
+  margin-top: 20px;
+  color: #4a4a4a;
+}
+
+/* ========== PRODUKTE ========== */
+.products {
+  padding: 60px 20px;
+}
+
+.products h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-family: 'Pacifico', cursive;
+  font-size: 3em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+/* ========== PRODUKTKACHEL ========== */
+.card {
+  background: transparent; /* kein Kasten */
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.card h3 {
+  margin: 10px 0 5px;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.4em;
+  color: #4a4a4a;
+}
+
+.price {
+  color: #8b7a6b;
+  margin-bottom: 8px;
+}
+
+button {
+  background: #e8b7c1;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+button:hover {
+  background: #d99aa8;
+}
+
+/* ========== WARENKORB ========== */
 .cart {
   position: fixed;
   top: 20px;
@@ -26,104 +108,10 @@ body {
   z-index: 1000;
 }
 
-/* ================== HERO ================== */
-.hero {
-  height: 100vh;
-  background: linear-gradient(135deg, #f2c6cf, #dfe8df);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.hero-box {
-  background: rgba(255,255,255,0.75);
-  padding: 40px;
-  border-radius: 25px;
-}
-
-.hero img {
-  max-width: 280px;
-  border-radius: 20px;
-}
-
-.hero h1 {
-  margin-top: 20px;
-  font-size: 2.5em;
-}
-
-/* ================== PRODUKTE ================== */
-.products {
-  padding: 60px;
-}
-
-.products h2 {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-}
-
-/* ================== PRODUKTKACHEL ================== */
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card img {
-  width: 100%;
-  border-radius: 15px;
-}
-
-.card h3 {
-  margin: 15px 0 5px;
-}
-
-.price {
-  color: #8b7a6b;
-  margin-bottom: 10px;
-}
-
-button {
-  background: #e8b7c1;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #d99aa8;
-}
-
-/* ================== BESTELLUNG ================== */
+/* ========== BESTELLUNG ========== */
 .order {
-  padding: 60px;
+  padding: 60px 20px;
   background-color: #ede6d8;
-}
-
-.order h2 {
-  text-align: center;
-}
-
-.order-info {
-  max-width: 600px;
-  margin: 0 auto 30px;
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
 }
 
 form {
@@ -156,21 +144,20 @@ small {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-box">
-    <img src="maus.jpg" alt="Meine beste Häkelmaus">
-    <h1>Handgemachte Häkeltiere</h1>
-    <p>Mit Liebe gehäkelt 🧶</p>
+  <div>
+    <img src="maus_freigestellt.png" alt="Meine beste Häkelmaus">
+    <h1>Wolly Mouse</h1>
   </div>
 </section>
 
 <!-- PRODUKTE -->
 <section class="products">
   <h2>Meine Tiere</h2>
-
   <div class="grid">
 
+    <!-- Beispielprodukt (du kannst weitere hinzufügen, bis 20) -->
     <div class="card">
-      <img src="maus1.jpg" alt="Häkelmaus Rosa">
+      <img src="maus1.png" alt="Häkelmaus Rosa">
       <h3>Häkelmaus Rosa</h3>
       <p class="price">18 CHF</p>
       <button onclick="addToCart('Häkelmaus Rosa', 18)">
@@ -179,7 +166,7 @@ small {
     </div>
 
     <div class="card">
-      <img src="frosch.jpg" alt="Häkelfrosch">
+      <img src="frosch.png" alt="Häkelfrosch">
       <h3>Häkelfrosch</h3>
       <p class="price">22 CHF</p>
       <button onclick="addToCart('Häkelfrosch', 22)">
@@ -188,7 +175,7 @@ small {
     </div>
 
     <div class="card">
-      <img src="hase.jpg" alt="Häkelhase">
+      <img src="hase.png" alt="Häkelhase">
       <h3>Häkelhase</h3>
       <p class="price">25 CHF</p>
       <button onclick="addToCart('Häkelhase', 25)">
@@ -196,46 +183,25 @@ small {
       </button>
     </div>
 
+    <!-- Hier einfach weitere Produkte bis 20 einfügen -->
+
   </div>
 </section>
 
 <!-- BESTELLUNG -->
 <section class="order">
   <h2>Bestellung</h2>
+  <p><strong>Bezahlung:</strong> TWINT (Vorkasse)</p>
+  <p><strong>TWINT Nummer:</strong> 07X XXX XX XX</p>
+  <small>Die Bestellung wird erst nach Zahlungseingang verbindlich.</small>
 
-  <div class="order-info">
-    <p><strong>Bezahlung:</strong> TWINT (Vorkasse)</p>
-    <p>
-      <strong>TWINT Nummer:</strong> 07X XXX XX XX<br>
-      <strong>Verwendungszweck:</strong> Name + Produkt
-    </p>
-    <small>
-      Die Bestellung wird erst nach Zahlungseingang verbindlich.
-    </small>
-  </div>
-
-  <form action="mailto:DEINEEMAIL@EMAIL.DE"
-        method="post"
-        enctype="text/plain">
-
+  <form action="mailto:DEINEEMAIL@EMAIL.DE" method="post" enctype="text/plain">
     <input type="text" name="Name" placeholder="Dein Name" required>
     <input type="email" name="Email" placeholder="Deine E-Mail" required>
     <textarea name="Adresse" placeholder="Lieferadresse" required></textarea>
-
-    <select name="Bezahlung">
-      <option>TWINT</option>
-    </select>
-
-    <textarea id="orderList"
-              name="Bestellung"
-              placeholder="Deine Bestellung"
-              required></textarea>
-
+    <textarea id="orderList" name="Bestellung" placeholder="Deine Bestellung" required></textarea>
     <button type="submit">Bestellung absenden</button>
-
-    <small>
-      Deine Daten werden nur zur Abwicklung der Bestellung verwendet.
-    </small>
+    <small>Deine Daten werden nur zur Abwicklung der Bestellung verwendet.</small>
   </form>
 </section>
 
@@ -246,7 +212,6 @@ let total = 0;
 function addToCart(name, price) {
   cart.push(name + " (" + price + " CHF)");
   total += price;
-
   document.getElementById("cartCount").innerText = cart.length;
   document.getElementById("orderList").value =
     cart.join(", ") + "\nGesamt: " + total + " CHF";
