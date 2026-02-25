@@ -328,26 +328,45 @@ function updateCart(){
     total += item.price;
     const li = document.createElement("li");
     li.textContent = `${item.name} (${item.price} CHF) `;
+    
+    // Papierkorb im Dropdown
     const btn = document.createElement("span");
     btn.textContent = "🗑️";
     btn.className = "delete-btn";
     btn.onclick = ()=> { removeFromCart(index); };
     li.appendChild(btn);
+
     cartItems.appendChild(li);
   });
   document.getElementById("cartTotal").textContent = total;
 
-  // Update Bestellformular
+  // Update Bestellformular mit Papierkorb
   const orderDiv = document.getElementById("orderList");
   orderDiv.innerHTML = "";
   cart.forEach((item,index)=>{
     const div = document.createElement("div");
-    div.textContent = `${index+1}. ${item.name} (${item.price} CHF)`;
+    div.style.display = "flex";
+    div.style.justifyContent = "space-between";
+    div.style.alignItems = "center";
+    div.style.marginBottom = "5px";
+
+    const spanText = document.createElement("span");
+    spanText.textContent = `${index+1}. ${item.name} (${item.price} CHF)`;
+
+    const delBtn = document.createElement("span");
+    delBtn.textContent = "🗑️";
+    delBtn.className = "delete-btn";
+    delBtn.onclick = ()=> { removeFromCart(index); };
+
+    div.appendChild(spanText);
+    div.appendChild(delBtn);
     orderDiv.appendChild(div);
   });
+
   if(cart.length>0){
     const totalDiv = document.createElement("div");
     totalDiv.style.fontWeight="bold";
+    totalDiv.style.marginTop = "10px";
     totalDiv.textContent = `Total: ${total} CHF`;
     orderDiv.appendChild(totalDiv);
   }
@@ -361,7 +380,6 @@ function addToCart(name,price){
 
 // Artikel entfernen
 function removeFromCart(index){
-  total -= cart[index].price;
   cart.splice(index,1);
   updateCart();
 }
