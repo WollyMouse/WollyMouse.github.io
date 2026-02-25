@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Wolly Mouse</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
 <style>
 body {
   margin: 0;
@@ -14,7 +12,7 @@ body {
   color: #4a4a4a;
 }
 
-/* Warenkorb */
+/* Warenkorb oben rechts */
 .cart {
   position: fixed;
   top: 20px;
@@ -25,9 +23,30 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   font-size: 16px;
   z-index: 1000;
+  cursor: pointer;
 }
 
-/* HERO MIT HINTERGRUNDBILD */
+.cart-dropdown {
+  display: none;
+  margin-top: 10px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.cart-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-dropdown li {
+  margin-bottom: 5px;
+}
+
+/* Hero */
 .hero {
   height: 100vh;
   display: flex;
@@ -39,14 +58,13 @@ body {
   overflow: hidden;
 }
 
-/* Transparenz-Bild */
 .hero::before {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
   background: url("images/Titelbild.jpeg") center/cover no-repeat;
-  opacity: 0.25; /* Transparenz hier anpassen */
+  opacity: 0.25;
   z-index: 0;
 }
 
@@ -143,6 +161,19 @@ input, textarea {
   border-radius: 10px;
 }
 
+.delete-btn {
+  background: #f5a3a3;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+.delete-btn:hover {
+  background: #e87676;
+}
+
 /* Bild Overlay */
 #imageOverlay {
   display: none;
@@ -171,12 +202,35 @@ input, textarea {
   color: white;
   cursor: pointer;
 }
+
+/* Zahlung */
+.payment {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.payment img {
+  max-width: 200px;
+  border-radius: 15px;
+}
+
+small {
+  font-size: 0.8em;
+  color: #666;
+}
 </style>
 </head>
 
 <body>
 
-<div class="cart">🛒 <span id="cartCount">0</span></div>
+<!-- Warenkorb -->
+<div class="cart">
+  🛒 <span id="cartCount">0</span>
+  <div class="cart-dropdown" id="cartDropdown">
+    <ul id="cartItems"></ul>
+    <p style="font-weight:bold;">Total: <span id="cartTotal">0</span> CHF</p>
+  </div>
+</div>
 
 <section class="hero">
   <h1>Wolly Mouse</h1>
@@ -207,27 +261,6 @@ input, textarea {
       <button onclick="addToCart('Garten Maus', 20)">In den Warenkorb</button>
     </div>
 
-    <div class="card">
-      <img src="images/Strand_Maus.jpeg" onclick="openImage(this.src)">
-      <h3>Strand Maus</h3>
-      <p class="price">20 CHF</p>
-      <button onclick="addToCart('Strand Maus', 20)">In den Warenkorb</button>
-    </div>
-
-    <div class="card">
-      <img src="images/WSL_Maus.jpeg" onclick="openImage(this.src)">
-      <h3>WSL Maus</h3>
-      <p class="price">20 CHF</p>
-      <button onclick="addToCart('WSL Maus', 20)">In den Warenkorb</button>
-    </div>
-
-    <div class="card">
-      <img src="images/Wander_Maus.jpeg" onclick="openImage(this.src)">
-      <h3>Wander Maus</h3>
-      <p class="price">20 CHF</p>
-      <button onclick="addToCart('Wander Maus', 20)">In den Warenkorb</button>
-    </div>
-
   </div>
 </section>
 
@@ -237,24 +270,95 @@ input, textarea {
   <img id="overlayImg">
 </div>
 
+<!-- Bestellung -->
+<section class="order">
+  <h2>Bestellung</h2>
+  <form action="mailto:DEINEEMAIL@EMAIL.DE" method="post" enctype="text/plain">
+    <input type="text" name="Name" placeholder="Dein Name" required>
+    <input type="email" name="Email" placeholder="Deine E-Mail" required>
+    <textarea name="Adresse" placeholder="Lieferadresse" required></textarea>
+    <div id="orderList"></div>
+    <button type="submit">Bestellung absenden</button>
+    <small>Deine Daten werden nur zur Abwicklung der Bestellung verwendet.</small>
+  </form>
+
+  <div class="payment">
+    <h3>Bezahlung per TWINT</h3>
+    <p>Scanne den QR-Code und zahle direkt:</p>
+    <img src="twint_qr.png" alt="TWINT QR-Code">
+    <small>Die Bestellung wird erst nach Zahlungseingang verbindlich.</small>
+  </div>
+</section>
+
 <script>
 let cart = [];
 let total = 0;
 
-function addToCart(name, price){
-  cart.push({name, price});
-  total += price;
+// Update Warenkorb-Dropdown und Formular
+function updateCart(){
+  // Warenkorb-Icon Count
   document.getElementById("cartCount").textContent = cart.length;
+
+  // Dropdown-Liste
+  const cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+  total = 0;
+  cart.forEach((item,index)=>{
+    total += item.price;
+    const li = document.createElement("li");
+    li.textContent = `${item.name} (${item.price} CHF) `;
+    const btn = document.createElement("span");
+    btn.textContent = "🗑️";
+    btn.className = "delete-btn";
+    btn.onclick = ()=> { removeFromCart(index); };
+    li.appendChild(btn);
+    cartItems.appendChild(li);
+  });
+  document.getElementById("cartTotal").textContent = total;
+
+  // Update Bestellformular
+  const orderDiv = document.getElementById("orderList");
+  orderDiv.innerHTML = "";
+  cart.forEach((item,index)=>{
+    const div = document.createElement("div");
+    div.textContent = `${index+1}. ${item.name} (${item.price} CHF)`;
+    orderDiv.appendChild(div);
+  });
+  if(cart.length>0){
+    const totalDiv = document.createElement("div");
+    totalDiv.style.fontWeight="bold";
+    totalDiv.textContent = `Total: ${total} CHF`;
+    orderDiv.appendChild(totalDiv);
+  }
 }
 
+// Artikel hinzufügen
+function addToCart(name,price){
+  cart.push({name,price});
+  updateCart();
+}
+
+// Artikel entfernen
+function removeFromCart(index){
+  total -= cart[index].price;
+  cart.splice(index,1);
+  updateCart();
+}
+
+// Overlay für Bilder
 function openImage(src){
   document.getElementById("overlayImg").src = src;
   document.getElementById("imageOverlay").style.display = "flex";
 }
-
 function closeImage(){
   document.getElementById("imageOverlay").style.display = "none";
 }
+
+// Dropdown anzeigen/verstecken bei Klick auf Warenkorb
+document.querySelector(".cart").addEventListener("click",()=>{
+  const dropdown = document.getElementById("cartDropdown");
+  dropdown.style.display = dropdown.style.display==="none"?"block":"none";
+});
 </script>
 
 </body>
