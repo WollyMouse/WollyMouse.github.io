@@ -7,165 +7,163 @@
 
 <style>
 body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f0e6;
-  color: #4a4a4a;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f0e6;
+  color:#4a4a4a;
 }
 
-/* Warenkorb */
-.cart {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: white;
-  padding: 10px 18px;
-  border-radius: 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  font-size: 16px;
-  z-index: 1000;
-  cursor: pointer;
-}
-
-.cart-dropdown {
-  display: none;
-  margin-top: 10px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.cart-dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
+/* HERO */
 .hero {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  background: linear-gradient(135deg, #f2c6cf, #dfe8df);
-  overflow: hidden;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
 }
 
 .hero::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("Titelbild.jpg") center/cover no-repeat;
-  opacity: 0.25;
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url("Titelbild.jpg") center/cover no-repeat;
+  opacity:0.25;
 }
 
 .hero h1 {
-  font-family: 'Pacifico', cursive;
-  font-size: 4em;
-  position: relative;
+  font-family:'Pacifico', cursive;
+  font-size:4em;
+  position:relative;
 }
 
-.products {
-  padding: 60px 20px;
+/* CART */
+.cart {
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:white;
+  padding:10px 18px;
+  border-radius:25px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  cursor:pointer;
+  z-index:1000;
 }
+
+.cart-dropdown {
+  display:none;
+  margin-top:10px;
+  background:#fff;
+  padding:10px;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  max-width:250px;
+}
+
+.cart-dropdown ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+/* PRODUCTS */
+.products { padding:60px 20px; }
 
 .products h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-family: 'Pacifico', cursive;
-  font-size: 3em;
+  text-align:center;
+  font-family:'Pacifico', cursive;
+  font-size:3em;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
 }
 
 .card {
-  text-align: center;
-  transition: transform 0.2s;
+  text-align:center;
+  transition:0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform:translateY(-5px);
 }
 
 .card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 15px;
-  cursor: pointer;
-  margin-bottom: 5px;
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  border-radius:15px;
+  cursor:pointer;
+  margin-bottom:5px;
 }
 
 .card.double img {
-  width: 48%;
-  height: 200px;
+  width:48%;
+  height:200px;
 }
 
 .price {
-  color: #8b7a6b;
+  color:#8b7a6b;
+  font-weight:bold;
 }
 
 button {
-  background: #e8b7c1;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 20px;
-  cursor: pointer;
+  background:#e8b7c1;
+  border:none;
+  padding:8px 15px;
+  border-radius:20px;
+  cursor:pointer;
 }
 
-button:hover {
-  background: #d99aa8;
-}
+button:hover { background:#d99aa8; }
 
+/* ORDER */
 .order {
-  padding: 60px 20px;
-  background-color: #ede6d8;
+  padding:60px 20px;
+  background:#ede6d8;
 }
 
 form {
-  max-width: 500px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
+  max-width:500px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
 }
 
 input, textarea {
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  margin:8px 0;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
 }
 
 #orderList {
-  background: #fff;
-  padding: 10px;
-  min-height: 100px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  min-height:100px;
+  margin-bottom:10px;
 }
 
 .payment {
-  text-align: center;
-  margin-top: 30px;
+  text-align:center;
+  margin-top:30px;
 }
 
 .payment img {
-  max-width: 200px;
-  border-radius: 15px;
+  max-width:200px;
+  border-radius:15px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="cart">
+<!-- CART -->
+<div class="cart" onclick="toggleCart()">
 🛒 <span id="cartCount">0</span>
 <div class="cart-dropdown" id="cartDropdown">
 <ul id="cartItems"></ul>
@@ -173,97 +171,82 @@ input, textarea {
 </div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
 <h1>Wolly Mouse</h1>
 </section>
 
+<!-- PRODUCTS -->
 <section class="products">
 <h2>Meine Mäuse</h2>
 <div class="grid">
 
-<!-- 1 -->
-<div class="card">
-<img src="1.jpg" onclick="openImage(this.src)">
-<h3>Rosalie Blumenmaus in Floristik-Box (rosa)</h3>
-<p class="price">65 CHF</p>
-<button onclick="addToCart('Rosalie Blumenmaus',65)">In den Warenkorb</button>
-</div>
+<!-- 1–27 -->
+<script>
+const products = [
+["1.jpg","Rosalie Blumenmaus (rosa)",65],
+["2.jpg","Bella Blumenmaus (blau)",65],
+["3.jpg","Wilma Wellness-Maus",50],
+["4.jpg","Rosie Tennismaus",50],
+["5.jpg","Sunny Strand Maus",60],
+["6.jpg","Gigi Garten Maus",50],
+["7.jpg","Filou Förster Maus",50],
+["8.jpg","Willi Wandermaus",50],
+["9.jpg","Ben Baustellen Maus",50],
+["10.jpg","Finn Fischermaus",50],
+["11.jpg","Bocuse Koch Maus",50],
+["12.jpg","Vito Vespa Hase (blau)",70],
+["13.jpg","Vito Vespa Hase (rot)",70],
+["14.jpg","10 Hühner in Box",30],
+["15.jpg","Clea & Matilde",20],
+["16.jpg","Häschenschule im Koffer",70],
+["17.jpg","Hasen Franz",45],
+["18.jpg","Hasen Franz & Susi",65],
+["19.jpg","Melly & Mia Mama Hase",50],
+["20.jpg","Hoppel Hasenfamilie",75],
+["21.jpg","Miss Painty",70],
+["23.jpg","Geschenkbox",0],
+["24.jpg","Mäuse Wohnkoffer",70],
+["25.jpg","Engel-Maus Weihnachten",45],
+["26.jpg","Tannenbaum Maus Weihnachten",45],
+["27.jpg","Weihnachtsmann Maus Weihnachten",45],
+];
 
-<!-- 2 -->
-<div class="card">
-<img src="2.jpg" onclick="openImage(this.src)">
-<h3>Bella Blumenmaus in Floristen-Box (blau)</h3>
-<p class="price">65 CHF</p>
-<button onclick="addToCart('Bella Blumenmaus',65)">In den Warenkorb</button>
-</div>
+const grid = document.currentScript.parentElement;
 
-<!-- 3 -->
-<div class="card">
-<img src="3.jpg" onclick="openImage(this.src)">
-<h3>Wilma Wellness-Maus in Sauna Box</h3>
-<p class="price">50 CHF</p>
-<button onclick="addToCart('Wilma Wellness-Maus',50)">In den Warenkorb</button>
-</div>
+products.forEach(p=>{
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+  <img src="${p[0]}" onclick="openImage(this.src)">
+  <h3>${p[1]}</h3>
+  ${p[2]>0?`<p class="price">${p[2]} CHF</p>
+  <button onclick="addToCart('${p[1]}',${p[2]})">In den Warenkorb</button>`:
+  `<p class="price">Preis auf Anfrage</p>`}
+  `;
+  grid.appendChild(card);
+});
 
-<!-- 4 -->
-<div class="card">
-<img src="4.jpg" onclick="openImage(this.src)">
-<h3>Rosie Tennismaus in Spieler Box</h3>
-<p class="price">50 CHF</p>
-<button onclick="addToCart('Rosie Tennismaus',50)">In den Warenkorb</button>
-</div>
-
-<!-- 5 -->
-<div class="card">
-<img src="5.jpg" onclick="openImage(this.src)">
-<h3>Sunny Strand Maus in Strand-Box</h3>
-<p class="price">60 CHF</p>
-<button onclick="addToCart('Sunny Strand Maus',60)">In den Warenkorb</button>
-</div>
-
-<!-- 6 -->
-<div class="card">
-<img src="6.jpg" onclick="openImage(this.src)">
-<h3>Gigi Garten Maus in Garten-Box</h3>
-<p class="price">50 CHF</p>
-<button onclick="addToCart('Gigi Garten Maus',50)">In den Warenkorb</button>
-</div>
-
-<!-- 7 -->
-<div class="card">
-<img src="7.jpg" onclick="openImage(this.src)">
-<h3>Filou Förster Maus in Wald Box</h3>
-<p class="price">50 CHF</p>
-<button onclick="addToCart('Filou Förster Maus',50)">In den Warenkorb</button>
-</div>
-
-<!-- 8 -->
-<div class="card">
-<img src="8.jpg" onclick="openImage(this.src)">
-<h3>Willi Wandermaus in Alpen Box</h3>
-<p class="price">50 CHF</p>
-<button onclick="addToCart('Willi Wandermaus',50)">In den Warenkorb</button>
-</div>
-
-<!-- Weitere Produkte exakt gleich aufgebaut bis 27 -->
-
-<!-- 22 mit zwei Bildern -->
-<div class="card double">
+/* Wunschmaus doppelt */
+const double=document.createElement("div");
+double.className="card double";
+double.innerHTML=`
 <img src="22_1.jpg" onclick="openImage(this.src)">
 <img src="22_2.jpg" onclick="openImage(this.src)">
-<h3>Wunschmaus auf Anfrage in Box</h3>
-<p class="price">Preis auf Anfrage</p>
-<button onclick="addToCart('Wunschmaus Anfrage',0)">Anfragen</button>
-</div>
+<h3>Wunschmaus auf Anfrage</h3>
+<p class="price">Preis auf Anfrage</p>`;
+grid.appendChild(double);
+</script>
 
 </div>
 </section>
 
+<!-- ORDER -->
 <section class="order">
 <h2>Bestellung</h2>
-<form>
-<input type="text" placeholder="Dein Name" required>
-<input type="email" placeholder="Deine E-Mail" required>
+<form onsubmit="submitOrder(event)">
+<input type="text" placeholder="Name" required>
+<input type="email" placeholder="E-Mail" required>
 <textarea placeholder="Lieferadresse" required></textarea>
 <div id="orderList"></div>
 <button type="submit">Bestellung absenden</button>
@@ -271,39 +254,40 @@ input, textarea {
 
 <div class="payment">
 <h3>Bezahlung per TWINT</h3>
-<p>Scanne den QR-Code und zahle direkt:</p>
+<p>QR-Code scannen:</p>
 <img src="QR-Code-Twint.jpg">
 </div>
 </section>
 
 <script>
-let cart = [];
-let total = 0;
-
-function updateCart(){
-document.getElementById("cartCount").textContent = cart.length;
-const cartItems = document.getElementById("cartItems");
-cartItems.innerHTML = "";
-total = 0;
-cart.forEach((item)=>{
-total += item.price;
-const li = document.createElement("li");
-li.textContent = item.name + " (" + item.price + " CHF)";
-cartItems.appendChild(li);
-});
-document.getElementById("cartTotal").textContent = total;
-}
-
+let cart=[];
 function addToCart(name,price){
 cart.push({name,price});
 updateCart();
 }
-
+function updateCart(){
+document.getElementById("cartCount").textContent=cart.length;
+const items=document.getElementById("cartItems");
+items.innerHTML="";
+let total=0;
+cart.forEach(i=>{
+total+=i.price;
+const li=document.createElement("li");
+li.textContent=i.name+" ("+i.price+" CHF)";
+items.appendChild(li);
+});
+document.getElementById("cartTotal").textContent=total;
+document.getElementById("orderList").innerHTML=items.innerHTML;
+}
+function toggleCart(){
+const dd=document.getElementById("cartDropdown");
+dd.style.display=dd.style.display==="block"?"none":"block";
+}
 function openImage(src){
-const overlay = document.createElement("div");
+const overlay=document.createElement("div");
 overlay.style.position="fixed";
-overlay.style.top="0";
-overlay.style.left="0";
+overlay.style.top=0;
+overlay.style.left=0;
 overlay.style.width="100%";
 overlay.style.height="100%";
 overlay.style.background="rgba(0,0,0,0.8)";
@@ -317,6 +301,12 @@ img.style.maxWidth="90%";
 img.style.borderRadius="20px";
 overlay.appendChild(img);
 document.body.appendChild(overlay);
+}
+function submitOrder(e){
+e.preventDefault();
+alert("Vielen Dank für deine Bestellung!");
+cart=[];
+updateCart();
 }
 </script>
 
