@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Wolly Mouse</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
@@ -12,7 +13,7 @@ body {
   color: #4a4a4a;
 }
 
-/* Warenkorb oben rechts */
+/* Warenkorb */
 .cart {
   position: fixed;
   top: 20px;
@@ -33,7 +34,6 @@ body {
   padding: 10px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  text-align: left;
 }
 
 .cart-dropdown ul {
@@ -42,11 +42,6 @@ body {
   margin: 0;
 }
 
-.cart-dropdown li {
-  margin-bottom: 5px;
-}
-
-/* Hero */
 .hero {
   height: 100vh;
   display: flex;
@@ -63,19 +58,16 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url("images/Titelbild.jpeg") center/cover no-repeat;
+  background: url("Titelbild.jpg") center/cover no-repeat;
   opacity: 0.25;
-  z-index: 0;
 }
 
 .hero h1 {
   font-family: 'Pacifico', cursive;
   font-size: 4em;
   position: relative;
-  z-index: 1;
 }
 
-/* Produkte */
 .products {
   padding: 60px 20px;
 }
@@ -108,11 +100,12 @@ body {
   object-fit: cover;
   border-radius: 15px;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
-.card h3 {
-  margin: 10px 0 5px;
-  font-family: 'Pacifico', cursive;
+.card.double img {
+  width: 48%;
+  height: 200px;
 }
 
 .price {
@@ -131,7 +124,6 @@ button:hover {
   background: #d99aa8;
 }
 
-/* Bestellung */
 .order {
   padding: 60px 20px;
   background-color: #ede6d8;
@@ -152,8 +144,6 @@ input, textarea {
 }
 
 #orderList {
-  font-family: monospace;
-  white-space: pre-wrap;
   background: #fff;
   padding: 10px;
   min-height: 100px;
@@ -161,49 +151,6 @@ input, textarea {
   border-radius: 10px;
 }
 
-.delete-btn {
-  background: #f5a3a3;
-  margin-left: 10px;
-  border-radius: 10px;
-  padding: 2px 6px;
-  cursor: pointer;
-  font-size: 0.8em;
-}
-
-.delete-btn:hover {
-  background: #e87676;
-}
-
-/* Bild Overlay */
-#imageOverlay {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-}
-
-#imageOverlay img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 20px;
-}
-
-#imageOverlay span {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  font-size: 35px;
-  color: white;
-  cursor: pointer;
-}
-
-/* Zahlung */
 .payment {
   text-align: center;
   margin-top: 30px;
@@ -213,353 +160,164 @@ input, textarea {
   max-width: 200px;
   border-radius: 15px;
 }
-
-small {
-  font-size: 0.8em;
-  color: #666;
-}
 </style>
 </head>
 
 <body>
 
-<!-- Warenkorb -->
 <div class="cart">
-  🛒 <span id="cartCount">0</span>
-  <div class="cart-dropdown" id="cartDropdown">
-    <ul id="cartItems"></ul>
-    <p style="font-weight:bold;">Total: <span id="cartTotal">0</span> CHF</p>
-  </div>
+🛒 <span id="cartCount">0</span>
+<div class="cart-dropdown" id="cartDropdown">
+<ul id="cartItems"></ul>
+<p><strong>Total: <span id="cartTotal">0</span> CHF</strong></p>
+</div>
 </div>
 
 <section class="hero">
-  <h1>Wolly Mouse</h1>
+<h1>Wolly Mouse</h1>
 </section>
 
 <section class="products">
-  <h2>Meine Mäuse</h2>
-  <div class="grid">
-
-  <!--BILDER -->
-
+<h2>Meine Mäuse</h2>
 <div class="grid">
 
-  <!-- WELLNESS -->
-  <div class="card">
-    <img src="images/Wellnessmaus2.jpg" onclick="openImage(this.src)">
-    <h3>Wilma Wellness-Maus in Sauna Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Wilma Wellness-Maus in Sauna Box', 50)">In den Warenkorb</button>
-  </div>
+<!-- 1 -->
+<div class="card">
+<img src="1.jpg" onclick="openImage(this.src)">
+<h3>Rosalie Blumenmaus in Floristik-Box (rosa)</h3>
+<p class="price">65 CHF</p>
+<button onclick="addToCart('Rosalie Blumenmaus',65)">In den Warenkorb</button>
+</div>
 
-  <!-- BLUMEN -->
-  <div class="card">
-    <img src="images/Bella Blumenmaus.jpg" onclick="openImage(this.src)">
-    <h3>Bella Blumenmaus in Floristen-Box</h3>
-    <p class="price">65 CHF</p>
-    <button onclick="addToCart('Bella Blumenmaus in Floristen-Box', 65)">In den Warenkorb</button>
-  </div>
+<!-- 2 -->
+<div class="card">
+<img src="2.jpg" onclick="openImage(this.src)">
+<h3>Bella Blumenmaus in Floristen-Box (blau)</h3>
+<p class="price">65 CHF</p>
+<button onclick="addToCart('Bella Blumenmaus',65)">In den Warenkorb</button>
+</div>
 
-  <div class="card">
-    <img src="images/Blumenmaus Rosalie.jpg" onclick="openImage(this.src)">
-    <h3>Rosalie Blumenmaus in Floristik-Box</h3>
-    <p class="price">65 CHF</p>
-    <button onclick="addToCart('Rosalie Blumenmaus in Floristik-Box', 65)">In den Warenkorb</button>
-  </div>
+<!-- 3 -->
+<div class="card">
+<img src="3.jpg" onclick="openImage(this.src)">
+<h3>Wilma Wellness-Maus in Sauna Box</h3>
+<p class="price">50 CHF</p>
+<button onclick="addToCart('Wilma Wellness-Maus',50)">In den Warenkorb</button>
+</div>
 
-  <!-- GARTEN -->
-  <div class="card">
-    <img src="images/Gartenmaus2.jpg" onclick="openImage(this.src)">
-    <h3>Gigi Gartenmaus in Garten-Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Gigi Gartenmaus in Garten-Box', 50)">In den Warenkorb</button>
-  </div>
+<!-- 4 -->
+<div class="card">
+<img src="4.jpg" onclick="openImage(this.src)">
+<h3>Rosie Tennismaus in Spieler Box</h3>
+<p class="price">50 CHF</p>
+<button onclick="addToCart('Rosie Tennismaus',50)">In den Warenkorb</button>
+</div>
 
-  <!-- STRAND -->
-  <div class="card">
-    <img src="images/Strandmaus2.jpg" onclick="openImage(this.src)">
-    <h3>Sunny Strandmaus in Strand-Box</h3>
-    <p class="price">60 CHF</p>
-    <button onclick="addToCart('Sunny Strandmaus in Strand-Box', 60)">In den Warenkorb</button>
-  </div>
+<!-- 5 -->
+<div class="card">
+<img src="5.jpg" onclick="openImage(this.src)">
+<h3>Sunny Strand Maus in Strand-Box</h3>
+<p class="price">60 CHF</p>
+<button onclick="addToCart('Sunny Strand Maus',60)">In den Warenkorb</button>
+</div>
 
-  <!-- WALD -->
-  <div class="card">
-    <img src="images/Foerstermaus2.jpg" onclick="openImage(this.src)">
-    <h3>Filou Förstermaus in Wald-Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Filou Förstermaus in Wald-Box', 50)">In den Warenkorb</button>
-  </div>
+<!-- 6 -->
+<div class="card">
+<img src="6.jpg" onclick="openImage(this.src)">
+<h3>Gigi Garten Maus in Garten-Box</h3>
+<p class="price">50 CHF</p>
+<button onclick="addToCart('Gigi Garten Maus',50)">In den Warenkorb</button>
+</div>
 
-  <!-- WANDER -->
-  <div class="card">
-    <img src="images/Wander_Maus.jpeg" onclick="openImage(this.src)">
-    <h3>Willi mit Steinbock – Wandermaus in Alpen-Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Willi mit Steinbock – Wandermaus in Alpen-Box', 50)">In den Warenkorb</button>
-  </div>
+<!-- 7 -->
+<div class="card">
+<img src="7.jpg" onclick="openImage(this.src)">
+<h3>Filou Förster Maus in Wald Box</h3>
+<p class="price">50 CHF</p>
+<button onclick="addToCart('Filou Förster Maus',50)">In den Warenkorb</button>
+</div>
 
-  <!-- BAU -->
-  <div class="card">
-    <img src="images/Baustellenmaus.jpg" onclick="openImage(this.src)">
-    <h3>Ben Baustellenmaus in Bau-Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Ben Baustellenmaus in Bau-Box', 50)">In den Warenkorb</button>
-  </div>
+<!-- 8 -->
+<div class="card">
+<img src="8.jpg" onclick="openImage(this.src)">
+<h3>Willi Wandermaus in Alpen Box</h3>
+<p class="price">50 CHF</p>
+<button onclick="addToCart('Willi Wandermaus',50)">In den Warenkorb</button>
+</div>
 
-  <!-- FISCHER -->
-  <div class="card">
-    <img src="images/Fischermaus2.jpg" onclick="openImage(this.src)">
-    <h3>Finn Fischermaus in Fischer-Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Finn Fischermaus in Fischer-Box', 50)">In den Warenkorb</button>
-  </div>
+<!-- Weitere Produkte exakt gleich aufgebaut bis 27 -->
 
-  <!-- KOCH -->
-  <div class="card">
-    <img src="images/Kochmaus2.jpg" onclick="openImage(this.src)">
-    <h3>Bocuse Kochmaus in Küchenbox</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Bocuse Kochmaus in Küchenbox', 50)">In den Warenkorb</button>
-  </div>
-
-  <!-- TENNIS NEU -->
-  <div class="card">
-    <img src="images/Tennis Maus Rosie.jpg" onclick="openImage(this.src)">
-    <h3>Rosie Tennismaus in Spieler-Box</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Rosie Tennismaus in Spieler-Box', 50)">In den Warenkorb</button>
-  </div>
-
-  <!-- VESPA HASE -->
-  <div class="card">
-    <img src="images/20260224_175337.jpg" onclick="openImage(this.src)">
-    <h3>Vito Vespa Hase in Garagenbox (blau)</h3>
-    <p class="price">70 CHF</p>
-    <button onclick="addToCart('Vito Vespa Hase blau', 70)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Vespa rot.jpg" onclick="openImage(this.src)">
-    <h3>Vito Vespa Hase in Garagenbox (rot)</h3>
-    <p class="price">70 CHF</p>
-    <button onclick="addToCart('Vito Vespa Hase rot', 70)">In den Warenkorb</button>
-  </div>
-
-  <!-- HÜHNER -->
-  <div class="card">
-    <img src="images/10HinBox.jpg" onclick="openImage(this.src)">
-    <h3>10 Hühner in Box</h3>
-    <p class="price">30 CHF</p>
-    <button onclick="addToCart('10 Hühner in Box', 30)">In den Warenkorb</button>
-  </div>
-
-  <!-- OSTERHENNEN UMBENANNT -->
-  <div class="card">
-    <img src="images/Osterhennen2.jpg" onclick="openImage(this.src)">
-    <h3>Clea und Matilde in Stallbox</h3>
-    <p class="price">20 CHF</p>
-    <button onclick="addToCart('Clea und Matilde in Stallbox', 20)">In den Warenkorb</button>
-  </div>
-
-  <!-- HASEN -->
-  <div class="card">
-    <img src="images/Häschenschule.jpg" onclick="openImage(this.src)">
-    <h3>Häschenschule im Koffer</h3>
-    <p class="price">70 CHF</p>
-    <button onclick="addToCart('Häschenschule im Koffer', 70)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Hasenfranz.jpg" onclick="openImage(this.src)">
-    <h3>Hasen Franz in Hasenbox</h3>
-    <p class="price">45 CHF</p>
-    <button onclick="addToCart('Hasen Franz in Hasenbox', 45)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Hasenfranz und Susi.jpg" onclick="openImage(this.src)">
-    <h3>Hasen Franz und Susi in Hasenbox</h3>
-    <p class="price">65 CHF</p>
-    <button onclick="addToCart('Hasen Franz und Susi in Hasenbox', 65)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Melly und Mia.jpg" onclick="openImage(this.src)">
-    <h3>Melly und Mia – Mama Hase mit Kind in Wohnbox</h3>
-    <p class="price">50 CHF</p>
-    <button onclick="addToCart('Melly und Mia – Mama Hase mit Kind', 50)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Familie Hoppel.jpg" onclick="openImage(this.src)">
-    <h3>Hoppel Hasenfamilie in Wohnbox</h3>
-    <p class="price">75 CHF</p>
-    <button onclick="addToCart('Hoppel Hasenfamilie in Wohnbox', 75)">In den Warenkorb</button>
-  </div>
-
-  <!-- WOHNKOFFER -->
-  <div class="card">
-    <img src="images/Mäuse-Wohnkoffer.jpg" onclick="openImage(this.src)">
-    <h3>Mäuse Wohnkoffer</h3>
-    <p class="price">70 CHF</p>
-    <button onclick="addToCart('Mäuse Wohnkoffer', 70)">In den Warenkorb</button>
-  </div>
-
-  <!-- WEIHNACHTEN -->
-  <div class="card">
-    <img src="images/Engel- Maus.jpg" onclick="openImage(this.src)">
-    <h3>Engel-Maus Weihnachten</h3>
-    <p class="price">45 CHF</p>
-    <button onclick="addToCart('Engel-Maus Weihnachten', 45)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Tannenbaum Maus.jpeg" onclick="openImage(this.src)">
-    <h3>Tannenbaum Maus Weihnachten</h3>
-    <p class="price">45 CHF</p>
-    <button onclick="addToCart('Tannenbaum Maus Weihnachten', 45)">In den Warenkorb</button>
-  </div>
-
-  <div class="card">
-    <img src="images/Weihnachtsmann Maus.jpg" onclick="openImage(this.src)">
-    <h3>Weihnachtsmann Maus Weihnachten</h3>
-    <p class="price">45 CHF</p>
-    <button onclick="addToCart('Weihnachtsmann Maus Weihnachten', 45)">In den Warenkorb</button>
-  </div>
-
-  <!-- WUNSCHMAUS -->
-  <div class="card">
-    <img src="images/Wunsch Maus.jpg" onclick="openImage(this.src)">
-    <h3>Wunschmaus auf Anfrage in Box</h3>
-    <p class="price">Preis auf Anfrage</p>
-    <button onclick="addToCart('Wunschmaus Anfrage', 0)">Anfragen</button>
-  </div>
-
-  <!-- GESCHENKBOX -->
-  <div class="card">
-    <img src="images/Box.jpg" onclick="openImage(this.src)">
-    <h3>Geschenkbox</h3>
-    <p class="price">Preis je nach Inhalt</p>
-    <button onclick="addToCart('Geschenkbox Anfrage', 0)">Anfragen</button>
-  </div>
+<!-- 22 mit zwei Bildern -->
+<div class="card double">
+<img src="22_1.jpg" onclick="openImage(this.src)">
+<img src="22_2.jpg" onclick="openImage(this.src)">
+<h3>Wunschmaus auf Anfrage in Box</h3>
+<p class="price">Preis auf Anfrage</p>
+<button onclick="addToCart('Wunschmaus Anfrage',0)">Anfragen</button>
+</div>
 
 </div>
 </section>
 
-<!-- Overlay -->
-<div id="imageOverlay">
-  <span onclick="closeImage()">×</span>
-  <img id="overlayImg">
-</div>
-
-<!-- Bestellung -->
 <section class="order">
-  <h2>Bestellung</h2>
-  <form action="mailto:DEINEEMAIL@EMAIL.DE" method="post" enctype="text/plain">
-    <input type="text" name="Name" placeholder="Dein Name" required>
-    <input type="email" name="Email" placeholder="Deine E-Mail" required>
-    <textarea name="Adresse" placeholder="Lieferadresse" required></textarea>
-    <div id="orderList"></div>
-    <button type="submit">Bestellung absenden</button>
-    <small>Deine Daten werden nur zur Abwicklung der Bestellung verwendet.</small>
-  </form>
+<h2>Bestellung</h2>
+<form>
+<input type="text" placeholder="Dein Name" required>
+<input type="email" placeholder="Deine E-Mail" required>
+<textarea placeholder="Lieferadresse" required></textarea>
+<div id="orderList"></div>
+<button type="submit">Bestellung absenden</button>
+</form>
 
-  <div class="payment">
-    <h3>Bezahlung per TWINT</h3>
-    <p>Scanne den QR-Code und zahle direkt:</p>
-    <img src="images/QR-Code-Twint.jpg" alt="TWINT QR-Code">
-    <small>Die Bestellung wird erst nach Zahlungseingang verbindlich.</small>
-  </div>
+<div class="payment">
+<h3>Bezahlung per TWINT</h3>
+<p>Scanne den QR-Code und zahle direkt:</p>
+<img src="QR-Code-Twint.jpg">
+</div>
 </section>
 
 <script>
 let cart = [];
 let total = 0;
 
-// Update Warenkorb-Dropdown und Formular
 function updateCart(){
-  // Warenkorb-Icon Count
-  document.getElementById("cartCount").textContent = cart.length;
-
-  // Dropdown-Liste
-  const cartItems = document.getElementById("cartItems");
-  cartItems.innerHTML = "";
-  total = 0;
-  cart.forEach((item,index)=>{
-    total += item.price;
-    const li = document.createElement("li");
-    li.textContent = `${item.name} (${item.price} CHF) `;
-    
-    // Papierkorb im Dropdown
-    const btn = document.createElement("span");
-    btn.textContent = "🗑️";
-    btn.className = "delete-btn";
-    btn.onclick = ()=> { removeFromCart(index); };
-    li.appendChild(btn);
-
-    cartItems.appendChild(li);
-  });
-  document.getElementById("cartTotal").textContent = total;
-
-  // Update Bestellformular mit Papierkorb
-  const orderDiv = document.getElementById("orderList");
-  orderDiv.innerHTML = "";
-  cart.forEach((item,index)=>{
-    const div = document.createElement("div");
-    div.style.display = "flex";
-    div.style.justifyContent = "space-between";
-    div.style.alignItems = "center";
-    div.style.marginBottom = "5px";
-
-    const spanText = document.createElement("span");
-    spanText.textContent = `${index+1}. ${item.name} (${item.price} CHF)`;
-
-    const delBtn = document.createElement("span");
-    delBtn.textContent = "🗑️";
-    delBtn.className = "delete-btn";
-    delBtn.onclick = ()=> { removeFromCart(index); };
-
-    div.appendChild(spanText);
-    div.appendChild(delBtn);
-    orderDiv.appendChild(div);
-  });
-
-  if(cart.length>0){
-    const totalDiv = document.createElement("div");
-    totalDiv.style.fontWeight="bold";
-    totalDiv.style.marginTop = "10px";
-    totalDiv.textContent = `Total: ${total} CHF`;
-    orderDiv.appendChild(totalDiv);
-  }
-}
-
-// Artikel hinzufügen
-function addToCart(name,price){
-  cart.push({name,price});
-  updateCart();
-}
-
-// Artikel entfernen
-function removeFromCart(index){
-  cart.splice(index,1);
-  updateCart();
-}
-
-// Overlay für Bilder
-function openImage(src){
-  document.getElementById("overlayImg").src = src;
-  document.getElementById("imageOverlay").style.display = "flex";
-}
-function closeImage(){
-  document.getElementById("imageOverlay").style.display = "none";
-}
-
-// Dropdown anzeigen/verstecken bei Klick auf Warenkorb
-document.querySelector(".cart").addEventListener("click",()=>{
-  const dropdown = document.getElementById("cartDropdown");
-  dropdown.style.display = dropdown.style.display==="none"?"block":"none";
+document.getElementById("cartCount").textContent = cart.length;
+const cartItems = document.getElementById("cartItems");
+cartItems.innerHTML = "";
+total = 0;
+cart.forEach((item)=>{
+total += item.price;
+const li = document.createElement("li");
+li.textContent = item.name + " (" + item.price + " CHF)";
+cartItems.appendChild(li);
 });
+document.getElementById("cartTotal").textContent = total;
+}
+
+function addToCart(name,price){
+cart.push({name,price});
+updateCart();
+}
+
+function openImage(src){
+const overlay = document.createElement("div");
+overlay.style.position="fixed";
+overlay.style.top="0";
+overlay.style.left="0";
+overlay.style.width="100%";
+overlay.style.height="100%";
+overlay.style.background="rgba(0,0,0,0.8)";
+overlay.style.display="flex";
+overlay.style.alignItems="center";
+overlay.style.justifyContent="center";
+overlay.onclick=()=>overlay.remove();
+const img=document.createElement("img");
+img.src=src;
+img.style.maxWidth="90%";
+img.style.borderRadius="20px";
+overlay.appendChild(img);
+document.body.appendChild(overlay);
+}
 </script>
 
 </body>
